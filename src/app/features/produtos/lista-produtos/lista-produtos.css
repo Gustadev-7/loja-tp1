@@ -1,0 +1,17 @@
+.catalogo{
+    max-width: 1000px;
+    margin: 24px auto; 
+    padding: 0 16px;
+}
+
+.catalogo h2 {
+    margin: 0 0 16px;
+    color: #111827;
+    font-size: 1.5rem;
+}   
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, lfr));
+    gap: 16px;
+}

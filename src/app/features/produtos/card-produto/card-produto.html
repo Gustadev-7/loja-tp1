@@ -1,0 +1,18 @@
+<article class="card" [class.promo]="produto().promo">
+    <img class="thumb" [src]="produto().imageUrl">
+    <div class="conteudo">
+        <h3 class="titulo">{{ produto().nome }}</h3>
+        <p class="desc">{{ produto().descricao }}</p>
+
+        <div class="linhapreco">
+            <span class="preco">{{ produto().preco | currency:'BRL' }}</span>
+            <app-quantidade-controle [(contador)]="quantidade"></app-quantidade-controle>
+        </div>
+
+        <div class="acoes">
+            <button tyoe="button" class="btn primary" (click)="onAdd()">Adicionar</button>
+            <button tyoe="button" class="btn ghost" (click)="onView()">Detalhes</button>
+        </div>
+
+    </div>
+</article>
