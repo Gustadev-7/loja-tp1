@@ -18,8 +18,6 @@ export class App {
   protected readonly title = signal('Loja TP1 2026');
   sobre?: string;
 
-  
-
   receberSobre(msg: string): void{
     this.sobre = msg;
   }
