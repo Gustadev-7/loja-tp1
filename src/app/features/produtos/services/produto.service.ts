@@ -64,4 +64,13 @@ export class ProdutoService {
     );
   }
 
+  // Método getById que recebe um id de produto e retorna um Observable contendo o produto correspondente
+  // da lista mockada. Se o produto não for encontrado, retorna undefined. A busca pelo produto é
+  // feita utilizando o método find do array, que percorre a lista de produtos e retorna o primeiro
+  // produto que possui o id correspondente. O resultado é retornado com um atraso de 500 milissegundos
+  // para simular uma chamada assíncrona.
+  getById(id: number): Observable<Produto | undefined> {
+    return of(this.listaMock.find(p => p.id == id)).pipe(delay(500));
+  }
+
 }

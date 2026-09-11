@@ -32,7 +32,13 @@ Cada `aula-0N.md` segue o [_template.md](_template.md):
 | 3 | 13/08/2026 | Comunicação entre componentes (`input` / `output` / `model`) | [aula-03.md](aula-03.md) |
 | 4 | 20/08/2026 | Listas, dados tipados, pipes nativos, `features/` | [aula-04.md](aula-04.md) |
 | 5 | 27/08/2026 | Control flow (`@if`/`@for`/`@switch`), `computed`, pipe customizado | [aula-05.md](aula-05.md) |
+| 6 | 03/09/2026 | Services, injeção de dependência (`inject`), Observables (RxJS), `toSignal` | [aula-06.md](aula-06.md) |
 
 ## Template
 
 Para criar um resumo novo manualmente, veja [_template.md](_template.md).
+
+## Branches
+
+`master` é a branch das aulas (e destes resumos). Exercícios vão na branch
+`exercicios`. Veja [../fluxo-git.md](../fluxo-git.md).
