@@ -33,6 +33,7 @@ Cada `aula-0N.md` segue o [_template.md](_template.md):
 | 4 | 20/08/2026 | Listas, dados tipados, pipes nativos, `features/` | [aula-04.md](aula-04.md) |
 | 5 | 27/08/2026 | Control flow (`@if`/`@for`/`@switch`), `computed`, pipe customizado | [aula-05.md](aula-05.md) |
 | 6 | 03/09/2026 | Services, injeção de dependência (`inject`), Observables (RxJS), `toSignal` | [aula-06.md](aula-06.md) |
+| 7 | 10/09/2026 | Roteamento: `Routes`, `router-outlet`, `routerLink`, `ActivatedRoute`, `Router` | [aula-07.md](aula-07.md) |
 
 ## Template
 

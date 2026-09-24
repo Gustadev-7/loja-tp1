@@ -3,6 +3,7 @@ import { Produto } from '../../../model/produto';
 import { CardProduto } from "../card-produto/card-produto";
 import { ProdutoService } from '../services/produto.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs/internal/operators/finalize';
 
 @Component({
   selector: 'app-lista-produtos',
@@ -14,12 +15,16 @@ export class ListaProdutos {
 
   // Injeção do serviço ProdutoService para obter a lista de produtos.
   private produtoService = inject(ProdutoService);
+  
+  // Criação de um sinal (signal) que representa se a lista de produtos está sendo carregada.
+  public carregando = signal(true);
 
-  // Criação de um sinal (signal) que representa a lista de produtos obtida do serviço ProdutoService.
-  // O sinal é inicializado com um valor vazio e será atualizado quando a lista de produtos for carregada.
-  // O método toSignal é usado para converter o Observable retornado pelo método listar() do serviço 
-  // ProdutoService em um sinal (signal).
-  private produtos = toSignal<Produto[], Produto[]>(this.produtoService.listar(), { initialValue: [] });
+  // Criação de um sinal (signal) que representa a lista de produtos obtida do serviço 
+  // ProdutoService. O método toSignal é usado para converter o Observable retornado pelo método 
+  // listar() do ProdutoService em um sinal (signal). O valor inicial do sinal é uma lista vazia, 
+  // e o finalize é usado para definir o sinal carregando como false quando a lista de produtos 
+  // for carregada.
+  private produtos = toSignal<Produto[], Produto[]>(this.produtoService.listar().pipe(finalize(() => this.carregando.set(false))), { initialValue: [] });
 
   // Criação de um sinal (signal) que representa se apenas produtos em promoção devem ser exibidos.
   apenasPromo = signal(false);

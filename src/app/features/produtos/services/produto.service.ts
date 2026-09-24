@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { LoggerService } from '../../../core/services/logger/logger.service';
-import { Produto } from '../../../model/produto';
+import { Produto, ProdutoMapper } from '../../../model/produto';
 import { Observable } from 'rxjs/internal/Observable';
-import { delay, of } from 'rxjs';
+import { catchError, delay, map, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,12 @@ export class ProdutoService {
   
   // Injeção do serviço LoggerService para registrar mensagens de log.
   private logger = inject(LoggerService);
+
+  // Injeção do serviço HttpClient para realizar requisições HTTP.
+  private http = inject(HttpClient);
+
+  // URL da API de produtos, utilizada para buscar dados de produtos de forma remota.
+  private apiUrl = 'https://fakestoreapi.com/products';
 
   // Lista de produtos mockada, representando um conjunto de produtos disponíveis.
   private readonly listaMock = <Produto[]>[
@@ -53,14 +60,19 @@ export class ProdutoService {
     },
   ];
 
-  // Método listar que retorna um Observable contendo a lista de produtos
-  // mockada. Antes de retornar a lista, registra uma mensagem de log informando que a lista
-  // de produtos está sendo retornada. A lista é retornada com um atraso de 250 milissegundos
-  // para simular uma chamada assíncrona.
+  // O método listar retorna um Observable contendo a lista de produtos obtida 
+  // da API remota. Ele utiliza o serviço HttpClient para fazer uma requisição 
+  // GET à URL da API, mapeando os dados recebidos para instâncias da interface 
+  // Produto usando o ProdutoMapper. Caso ocorra algum erro durante a requisição,
+  // ele captura o erro e retorna um Observable com uma lista vazia.
   listar(): Observable<Produto[]> {
-    this.logger.info("[PRODUTO SERVICE] - Retornando lista de produtos")
-    return of(this.listaMock).pipe(
-      delay(1000)
+    this.logger.info("[PRODUTO SERVICE] - Retornando lista de produtos");
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map(lista => lista.map(prod => ProdutoMapper.fromJson(prod))),
+      catchError(erro => {
+        this.logger.error("[PRODUTO SERVICE] - Erro ao buscar lista de produtos");
+        return of([]);
+      })
     );
   }
 
@@ -70,7 +82,13 @@ export class ProdutoService {
   // produto que possui o id correspondente. O resultado é retornado com um atraso de 500 milissegundos
   // para simular uma chamada assíncrona.
   getById(id: number): Observable<Produto | undefined> {
-    return of(this.listaMock.find(p => p.id == id)).pipe(delay(500));
+    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+      map(prod => ProdutoMapper.fromJson(prod)),
+      catchError(erro => {
+        this.logger.error("[PRODUTO SERVICE] - Erro ao buscar produto por ID");
+        return of(undefined);
+      })
+    );
   }
 
 }

@@ -3,7 +3,7 @@
     <div class="conteudo">
         <header class="cabecalho">
 
-            <h3 class="titulo">{{ produto().nome }}</h3>
+            <h3 class="titulo">{{ produto().nome | truncar: 25 }}</h3>
 
             @switch (produto().estado) {
                 @case ('novo') {
@@ -19,7 +19,7 @@
             }
         </header>
 
-        <p class="desc">{{ produto().descricao }}</p>
+        <p class="desc">{{ produto().descricao | truncar: 100 }}</p>
 
       <!--  <div class="linhapreco">
             <span class="preco">{{ produto().preco | currency:'BRL':'symbol':'1.2-2' }}</span>
