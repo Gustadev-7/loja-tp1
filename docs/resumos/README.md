@@ -34,6 +34,7 @@ Cada `aula-0N.md` segue o [_template.md](_template.md):
 | 5 | 27/08/2026 | Control flow (`@if`/`@for`/`@switch`), `computed`, pipe customizado | [aula-05.md](aula-05.md) |
 | 6 | 03/09/2026 | Services, injeção de dependência (`inject`), Observables (RxJS), `toSignal` | [aula-06.md](aula-06.md) |
 | 7 | 10/09/2026 | Roteamento: `Routes`, `router-outlet`, `routerLink`, `ActivatedRoute`, `Router` | [aula-07.md](aula-07.md) |
+| 8 | 17/09/2026 | `HttpClient`, mapper (`ProdutoMapper`), RxJS `map`/`catchError`/`finalize`, pipe `Truncar` | [aula-08.md](aula-08.md) |
 
 ## Template
 

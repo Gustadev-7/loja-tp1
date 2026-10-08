@@ -20,46 +20,6 @@ export class ProdutoService {
   // URL da API de produtos, utilizada para buscar dados de produtos de forma remota.
   private apiUrl = 'https://fakestoreapi.com/products';
 
-  // Lista de produtos mockada, representando um conjunto de produtos disponíveis.
-  private readonly listaMock = <Produto[]>[
-    {
-      id: 1,
-      nome: 'Mounjaro',
-      preco: 1699.9,
-      descricao: 'Caneta caras demais. Deus me livre.',
-      imageUrl: 'images/mounjaro.jpg',
-      promo: false,
-      estado: 'novo'
-    },
-    {
-      id: 2,
-      nome: 'Ozempic',
-      preco: 1299.94,
-      descricao: 'Continuam caras. Deus continue me livrando.',
-      imageUrl: 'images/ozempic.jpg',
-      promo: false,
-      estado: 'usado'
-    },
-    {
-      id: 3,
-      nome: 'Wegovy',
-      preco: 2500.00,
-      descricao: 'Misericórdia. Deus foi para Floripa?',
-      imageUrl: 'images/wegovy.jpeg',
-      promo: true,
-      estado: 'esgotado'
-    },
-    {
-      id: 4,
-      nome: 'Novalgina',
-      preco: 17.90,
-      descricao: 'Dor de cabeça? Dor de dente? Dor de barriga? Novalgina resolve.',
-      imageUrl: 'images/novalgina.jpeg',
-      promo: false,
-      estado: 'novo'
-    },
-  ];
-
   // O método listar retorna um Observable contendo a lista de produtos obtida 
   // da API remota. Ele utiliza o serviço HttpClient para fazer uma requisição 
   // GET à URL da API, mapeando os dados recebidos para instâncias da interface 
@@ -91,4 +51,11 @@ export class ProdutoService {
     );
   }
 
+  // O método criar recebe um objeto Produto e realiza uma requisição POST para a API remota, enviando os dados 
+  // do produto convertidos para JSON utilizando o ProdutoMapper. O método retorna um Observable contendo a 
+  // resposta da API, que pode ser utilizada para verificar se o produto foi criado com sucesso ou para tratar 
+  // possíveis erros.
+  criar(produto: Produto): Observable<any> {
+    return this.http.post<any>(this.apiUrl, ProdutoMapper.toJson(produto));
+  }
 }
